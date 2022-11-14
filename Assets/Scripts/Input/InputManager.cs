@@ -31,6 +31,7 @@ public class InputManager : MonoBehaviour
     {
         return instance;
     }
+
     public void MovePressed(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -113,5 +114,4 @@ public class InputManager : MonoBehaviour
     {
         submitPressed = false;
     }
-
 }

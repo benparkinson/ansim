@@ -5,59 +5,65 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
-
-    Animator animator;
-
-    int isWalkingHash;
-    Controls controls;
-    Vector2 currentMovement;
-    bool movementPressed;
-    bool IsGrounded;
+    private Animator animator;
+    private int isWalkingHash;
+    private Controls controls;
+    private Vector2 currentMovement;
+    private bool movementPressed;
+    private bool IsGrounded;
     
-    private void Start() {
+    private void Start() 
+    {
         animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
     }
 
-    void HandleMovement(){
+    void HandleMovement()
+    {
         bool isWalking = animator.GetBool(isWalkingHash);
 
-        
-
-        if(movementPressed && !isWalking){
+        if (movementPressed && !isWalking) 
+        {
             animator.SetBool(isWalkingHash, true);
-        } else if(!movementPressed && isWalking){
+        } 
+        else if (!movementPressed && isWalking) 
+        {
             animator.SetBool(isWalkingHash, false);
         }
+
         controls.Player.Move.canceled += ctx => movementPressed = false;
     }
 
-    void HandleRotation(){
+    void HandleRotation()
+    {
         Vector3 currentPosition = transform.position;
         Vector3 newPosition = new Vector3(currentMovement.x, 0, currentMovement.y);
         Vector3 positionToLookAt = currentPosition + newPosition;
         transform.LookAt(positionToLookAt);
     }
 
-
-    void OnEnable() {
+    void OnEnable() 
+    {
         controls.Player.Enable();
     }
 
-    void OnDisable() {
+    void OnDisable() 
+    {
         controls.Player.Disable();
     }
 
-    private void Awake() {
+    private void Awake() 
+    {
         controls = new Controls();
-        controls.Player.Move.performed += ctx => {
+        controls.Player.Move.performed += ctx => 
+        {
             currentMovement = ctx.ReadValue<Vector2>();
             movementPressed = currentMovement.x != 0 || currentMovement.y != 0;
-            };
+        };
     }
 
-    private void Update() {
+    private void Update() 
+    {
         HandleMovement();
         HandleRotation();
     }
@@ -68,14 +74,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Ground")
-        {
-            IsGrounded = true;
-        }
-        else
-        {
-            IsGrounded = false;
-        }
+        IsGrounded = other.gameObject.tag == "Ground";
     }
-
 }
