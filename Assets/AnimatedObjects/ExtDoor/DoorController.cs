@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerEnter(Collider other) 
+    {
         animator.SetBool("doorTriggered", true);
     }
-    private void OnTriggerExit(Collider other) {
+
+    private void OnTriggerExit(Collider other) 
+    {
         animator.SetBool("doorTriggered", false);
     }
+    
     // Start is called before the first frame update
     void Start()
     {

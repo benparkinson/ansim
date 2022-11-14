@@ -12,33 +12,41 @@ public class DialogueTrigger : MonoBehaviour
 
     private bool playerInRange;
 
-    private void Awake() {
+    private void Awake() 
+    {
         playerInRange = false;
         visualCue.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider collider) {
-        if (collider.gameObject.tag == "Player"){
+    private void OnTriggerEnter(Collider collider) 
+    {
+        if (collider.gameObject.tag == "Player")
+        {
             playerInRange = true;
         }
     }
 
-    private void OnTriggerExit(Collider collider) {
-        if (collider.gameObject.tag == "Player"){
+    private void OnTriggerExit(Collider collider) 
+    {
+        if (collider.gameObject.tag == "Player")
+        {
             playerInRange = false;
         }
     }
 
-    private void Update() {
-        if (playerInRange){
+    private void Update() 
+    {
+        if (playerInRange)
+        {
             visualCue.SetActive(true);
-            if (InputManager.GetInstance().GetInteractPressed()){
+            if (InputManager.GetInstance().GetInteractPressed())
+            {
                 Debug.Log("Interact button pressed");
             }
-        } else {
+        } 
+        else 
+        {
             visualCue.SetActive(false);
         }
-    }
-    
-
+    }  
 }
